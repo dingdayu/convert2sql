@@ -1,0 +1,46 @@
+{
+    "name": "dingdayu/text-convert-sql",
+    "keywords": [
+        "big data",
+        "convert sql"
+    ],
+    "description": "big data file convert sql file.",
+    "type": "project",
+    "license": "Apache-2.0",
+    "homepage": "https://github.com/dingdayu/baidu-bce-ocr-sdk/",
+    "authors": [
+        {
+            "name": "dingdayu",
+            "email": "614422099@qq.com",
+            "homepage": "http://blog.dingxiaoyu.com",
+            "role": "Admin"
+        }
+    ],
+    "support": {
+        "email": "614422099@qq.com",
+        "issues": "https://github.com/dingdayu/baidu-bce-ocr-sdk/issues",
+        "wiki": "https://github.com/dingdayu/baidu-bce-ocr-sdk/wiki",
+        "source": "https://github.com/dingdayu/baidu-bce-ocr-sdk/releases"
+    },
+    "require": {
+        "php": ">=5.4",
+        "phpoffice/phpexcel": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "TextToSQL\\": "src/"
+        }
+    },
+    "extra": {
+        "version": "0.1.3-dev"
+    },
+    "bin": [
+        "src/bin/tosql"
+    ],
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}
