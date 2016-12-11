@@ -27,7 +27,7 @@ $filed = $csv->printExportFiled();
 $table = new \TextToSQL\Console\Table();
 echo $table->getTable($filed);
 
-if(gets('格式是否正确：（y是，其他否）') != 'y') {
+if(strtolower(\TextToSQL\Console\IO::input('格式是否正确：（y是，其他否）')) != 'y') {
     exit();
 }
 
@@ -50,12 +50,3 @@ echo PHP_EOL;
 echo "Done.\n";
 
 
-// 询问用户输入
-function gets($msg = '')
-{
-    if($msg)
-        fwrite(STDOUT, $msg);
-
-    $value = trim(fgets(STDIN));
-    return $value;
-}
