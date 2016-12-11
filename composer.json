@@ -1,5 +1,5 @@
 {
-    "name": "dingdayu/text-convert-sql",
+    "name": "dingdayu/convert2sql",
     "keywords": [
         "big data",
         "convert sql"
@@ -7,7 +7,7 @@
     "description": "big data file convert sql file.",
     "type": "project",
     "license": "Apache-2.0",
-    "homepage": "https://github.com/dingdayu/baidu-bce-ocr-sdk/",
+    "homepage": "https://github.com/dingdayu/convert2sql/",
     "authors": [
         {
             "name": "dingdayu",
@@ -18,9 +18,9 @@
     ],
     "support": {
         "email": "614422099@qq.com",
-        "issues": "https://github.com/dingdayu/baidu-bce-ocr-sdk/issues",
-        "wiki": "https://github.com/dingdayu/baidu-bce-ocr-sdk/wiki",
-        "source": "https://github.com/dingdayu/baidu-bce-ocr-sdk/releases"
+        "issues": "https://github.com/dingdayu/convert2sql/issues",
+        "wiki": "https://github.com/dingdayu/convert2sql/wiki",
+        "source": "https://github.com/dingdayu/convert2sql/releases"
     },
     "require": {
         "php": ">=5.4",
