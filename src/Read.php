@@ -12,9 +12,7 @@
 // | Explain: 请在这里填写说明
 // +----------------------------------------------------------------------
 
-
 namespace TextToSQL;
-
 
 class Read extends File
 {
@@ -40,7 +38,9 @@ class Read extends File
         $this->export_field = $this->getExportField();
     }
 
-    protected function getExportField(){}
+    protected function getExportField()
+    {
+    }
 
     /**
      * 获取配置中的配置项.
@@ -50,6 +50,7 @@ class Read extends File
      * @param string $name
      *
      * @return string
+     *
      * @throws \Exception
      */
     protected function getConfig($name = '')
@@ -58,9 +59,9 @@ class Read extends File
         if (empty($value)) {
             throw new \Exception("config.php {$value} undefinition!", 4010);
         }
+
         return $value;
     }
-
 
     /**
      * 分割字符串为数组.
@@ -79,11 +80,12 @@ class Read extends File
             }
             $str = explode($this->delimiter[0], $str);
         }
+
         return $str;
     }
 
     /**
-     * 导出前对字段进行回调处理
+     * 导出前对字段进行回调处理.
      *
      * @author: dingdayu(614422099@qq.com)
      *
@@ -91,6 +93,7 @@ class Read extends File
      * @param string $str
      *
      * @return mixed
+     *
      * @throws \Exception
      */
     protected function exportCallable($callback = '', $str = '')
@@ -116,7 +119,6 @@ class Read extends File
 
             throw new \Exception("{$callback} not method!!", 4022);
         }
-
     }
 
     /**
@@ -132,6 +134,7 @@ class Read extends File
         $offset = $this->ftell();
 
         $x = $offset * 100 / $size;
+
         return ceil($x);
     }
 
@@ -144,13 +147,15 @@ class Read extends File
      *
      * @return string
      */
-    public function characet($data = ''){
-        if( !empty($data) ){
-            $fileType = mb_detect_encoding($data , array('UTF-8','GBK','LATIN1','BIG5')) ;
-            if( $fileType != 'UTF-8'){
-                $data = mb_convert_encoding($data ,'utf-8' , $fileType);
+    public function characet($data = '')
+    {
+        if (!empty($data)) {
+            $fileType = mb_detect_encoding($data, array('UTF-8', 'GBK', 'LATIN1', 'BIG5'));
+            if ($fileType != 'UTF-8') {
+                $data = mb_convert_encoding($data, 'utf-8', $fileType);
             }
         }
+
         return $data;
     }
 }

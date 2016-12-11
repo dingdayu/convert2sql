@@ -12,9 +12,7 @@
 // | Explain: 请在这里填写说明
 // +----------------------------------------------------------------------
 
-
 namespace TextToSQL;
-
 
 class Config
 {
@@ -22,8 +20,9 @@ class Config
 
     public function __construct()
     {
-        if(empty(self::$config))
-            self::$config = require(__DIR__ . '/../config.php');
+        if (empty(self::$config)) {
+            self::$config = require __DIR__.'/../config.php';
+        }
     }
 
     /**
@@ -42,6 +41,7 @@ class Config
     public function set($name = '', $value = '')
     {
         self::$config[$name] = $value;
+
         return self::$config[$name];
     }
 }

@@ -12,7 +12,6 @@
 // | Explain: 请在这里填写说明
 // +----------------------------------------------------------------------
 
-
 namespace TextToSQL;
 
 class Write extends File
@@ -23,20 +22,20 @@ class Write extends File
     private $config;
 
     private $file_name = 'export';
-    private $exportPath = __DIR__ . "/../export/";
+    private $exportPath = __DIR__.'/../export/';
 
     public function __construct($file_name = 'export')
     {
         $file_path = $this->newFilePath($file_name);
         parent::__construct($file_path, 'a+');
-        if(!is_writable($file_path)) {
+        if (!is_writable($file_path)) {
             throw new \Exception('file not wirte!', 4004);
         }
         $this->config = new Config();
     }
 
     /**
-     * 获取最好的操作名
+     * 获取最好的操作名.
      *
      * @author: dingdayu(614422099@qq.com)
      *
@@ -48,9 +47,10 @@ class Write extends File
     }
 
     /**
-     * 创建一个新的导出文件
+     * 创建一个新的导出文件.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param string $name
      *
      * @return string
@@ -58,9 +58,9 @@ class Write extends File
     public function newFilePath($name = '')
     {
         $this->file_name = $name ?: $this->file_name;
-        return $this->exportPath . $this->file_name . '_' . time() . '.sql';
-    }
 
+        return $this->exportPath.$this->file_name.'_'.time().'.sql';
+    }
 
     /**
      * 获取配置中的配置项.
@@ -70,6 +70,7 @@ class Write extends File
      * @param string $name
      *
      * @return string
+     *
      * @throws \Exception
      */
     protected function getConfig($name = '')
@@ -78,6 +79,7 @@ class Write extends File
         if (empty($value)) {
             throw new \Exception("config.php {$value} undefinition!", 4010);
         }
+
         return $value;
     }
 
@@ -85,18 +87,21 @@ class Write extends File
      * 字符串编码转换为UTF8.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param $data
      *
      * @return mixed|string
      */
-    public function characet($data){
-        if( !empty($data) ){
-            $fileType = mb_detect_encoding($data , array('UTF-8','GBK','LATIN1','BIG5')) ;
-            if( $fileType != 'UTF-8' || $fileType != 'UTF-8'){
-                $data = mb_convert_encoding($data ,'utf-8' , $fileType);
+    public function characet($data)
+    {
+        if (!empty($data)) {
+            $fileType = mb_detect_encoding($data, array('UTF-8', 'GBK', 'LATIN1', 'BIG5'));
+            if ($fileType != 'UTF-8' || $fileType != 'UTF-8') {
+                $data = mb_convert_encoding($data, 'utf-8', $fileType);
                 $data = preg_replace('/[\x{10000}-\x{10FFFF}]/u', '', $data);
             }
         }
+
         return $data;
     }
 
@@ -110,10 +115,10 @@ class Write extends File
         $max_size = $this->getConfig('FileMaxSize');
         $max_size = $max_size - 4;
 
-        if(file_exists($this->path)) {
+        if (file_exists($this->path)) {
             $file_size = filesize($this->path) / 1024;
 
-            if($file_size > $max_size) {
+            if ($file_size > $max_size) {
                 $file_path = $this->newFilePath();
                 parent::__construct($file_path, 'a+');
             }
@@ -124,6 +129,7 @@ class Write extends File
      * 将文件内容清空.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @return int
      */
     public function clear()
@@ -135,6 +141,7 @@ class Write extends File
      * 删除文件.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @return bool
      */
     public function remove()
@@ -143,19 +150,22 @@ class Write extends File
     }
 
     /**
-     * 删除目录及文件
+     * 删除目录及文件.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param string $dir
      * @param bool   $removeSelf
      *
      * @return bool
      */
-    public function delTree($dir = '', $removeSelf = false) {
-        $files = array_diff(scandir($dir), array('.','..'));
+    public function delTree($dir = '', $removeSelf = false)
+    {
+        $files = array_diff(scandir($dir), array('.', '..'));
         foreach ($files as $file) {
             (is_dir("{$dir}/{$file}")) ? $this->delTree("{$dir}/{$file}") : unlink("{$dir}/{$file}");
         }
+
         return $removeSelf ? rmdir($dir) : true;
     }
 }

@@ -12,9 +12,7 @@
 // | Explain: 请在这里填写说明
 // +----------------------------------------------------------------------
 
-
 namespace TextToSQL;
-
 
 class ExportHandle
 {
@@ -22,6 +20,7 @@ class ExportHandle
      * 将时间转时间戳.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param string $str
      *
      * @return false|int
@@ -29,6 +28,7 @@ class ExportHandle
     public function strtotime($str = '')
     {
         date_default_timezone_set('Asia/Shanghai');
+
         return strtotime($str);
     }
 
@@ -36,6 +36,7 @@ class ExportHandle
      * 填充性别.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param string $str
      *
      * @return int

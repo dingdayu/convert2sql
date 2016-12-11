@@ -12,9 +12,7 @@
 // | Explain: 请在这里填写说明
 // +----------------------------------------------------------------------
 
-
 namespace TextToSQL;
-
 
 class File
 {
@@ -24,7 +22,7 @@ class File
     public function __construct($file_path = '', $mode = 'r')
     {
         $this->handle = fopen($file_path, $mode);
-        if(!file_exists($file_path)) {
+        if (!file_exists($file_path)) {
             throw new \Exception('File not search!', 4001);
         }
         $this->path = $file_path;

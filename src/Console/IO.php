@@ -12,19 +12,19 @@
 // | Explain: 请在这里填写说明
 // +----------------------------------------------------------------------
 
-
 namespace TextToSQL\Console;
-
 
 class IO
 {
-// 询问用户输入
+    // 询问用户输入
     public static function input($msg = '')
     {
-        if($msg)
+        if ($msg) {
             fwrite(STDOUT, $msg);
+        }
 
         $value = trim(fgets(STDIN));
+
         return $value;
     }
 
@@ -32,6 +32,7 @@ class IO
      * 输出到控制台.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param string $msg
      * @param string $color
      */

@@ -18,12 +18,11 @@ use TextToSQL\Read;
 
 class CVS extends Read
 {
-
-
     /**
      * 1. 获取首行字段名称.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @return array
      */
     private function getFirstRow()
@@ -39,19 +38,22 @@ class CVS extends Read
             //将指针移回
             $this->fseek($offset);
         }
+
         return $row;
     }
 
     /**
-     * 2. 获取导出的字段数组 包含别名和定位
+     * 2. 获取导出的字段数组 包含别名和定位.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @return array
      */
     protected function getExportField()
     {
-        if(!empty($this->export_field))
+        if (!empty($this->export_field)) {
             return $this->export_field;
+        }
 
         // 获取需要导出的字段配置和映射
         $exportField = $this->getConfig('ExportField');
@@ -68,6 +70,7 @@ class CVS extends Read
                 $this->export_field[] = $temp_pos;
             }
         }
+
         return $this->export_field;
     }
 
@@ -75,6 +78,7 @@ class CVS extends Read
      * 获取打印到控制台的字段确认数组.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @return array
      */
     public function printExportFiled()
@@ -84,7 +88,7 @@ class CVS extends Read
         $head_arr[] = ['name' => '字段名称', 'alias' => '字段别名', 'pos' => '字段位置'];
         ksort($head_arr);
 
-        if(!empty($addField)) {
+        if (!empty($addField)) {
             foreach ($addField as $k => $v) {
                 $add_arr = ['name' => $k, 'alias' => $v, 'pos' => '无'];
                 ksort($add_arr);
@@ -92,12 +96,15 @@ class CVS extends Read
             }
         }
         $filed = array_merge($head_arr, $filed);
+
         return $filed;
     }
 
     /**
-     * 3. 根据一行内容，获取导出的数组
+     * 3. 根据一行内容，获取导出的数组.
+     *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param array $row
      *
      * @return array
@@ -108,15 +115,16 @@ class CVS extends Read
         $fieldFunction = $this->getConfig('FieldFunction');
         $addField = $this->getConfig('AddField');
 
-        if(empty($row))
+        if (empty($row)) {
             return [];
+        }
 
         $arr = $addField ?: [];
         foreach ($this->export_field as $key => $value) {
-            $temp_var = !empty($row[$value['pos']]) ? $row[$value['pos']] : '' ;
+            $temp_var = !empty($row[$value['pos']]) ? $row[$value['pos']] : '';
             // 处理字段函数
             $function = !empty($fieldFunction[$value['alias']])
-                ? : !empty($fieldFunction[$value['name']]) ? : '';
+                ?: !empty($fieldFunction[$value['name']]) ?: '';
             if (!empty($function)) {
                 $function = $fieldFunction[$value['alias']];
                 $temp_var = $this->exportCallable($function, $temp_var);
@@ -124,11 +132,12 @@ class CVS extends Read
 
             $arr = $arr + [$value['alias'] => $temp_var];
         }
+
         return $arr;
     }
 
     /**
-     * 获取一行内容，并转出导出数组,自动下移文件游标
+     * 获取一行内容，并转出导出数组,自动下移文件游标.
      *
      * @author: dingdayu(614422099@qq.com)
      *
@@ -137,9 +146,10 @@ class CVS extends Read
     private function getRowExportArr()
     {
         $content = fgetcsv($this->handle);
-        if(empty($content)) {
+        if (empty($content)) {
             return [];
         }
+
         return $this->getFileRowToExportArr($content);
     }
 
@@ -148,7 +158,7 @@ class CVS extends Read
      *
      * @author: dingdayu(614422099@qq.com)
      *
-     * @param int $row  返回的行数,默认1行,-1则返回所有行
+     * @param int $row    返回的行数,默认1行,-1则返回所有行
      * @param int $offset 开始的偏移量,默认-1不偏移,当为整数时偏移(暂不支持倒排)
      *
      * @return array
@@ -157,17 +167,17 @@ class CVS extends Read
     {
         $ret = [];
 
-        if($offset !== -1 &&  is_int($offset)) {
+        if ($offset !== -1 && is_int($offset)) {
             $this->fseek($offset);
         }
 
-        if($row == -1) {
+        if ($row == -1) {
             while (!$this->feof()) {
                 $ret[] = $this->getRowExportArr();
             }
         } else {
-            for ($i = 1; $i <= $row; $i++) {
-                if(!$this->feof()){
+            for ($i = 1; $i <= $row; ++$i) {
+                if (!$this->feof()) {
                     $ret[] = $this->getRowExportArr();
                 }
             }
@@ -175,5 +185,4 @@ class CVS extends Read
 
         return $ret;
     }
-
 }

@@ -84,16 +84,17 @@ class Color
      * 将语义化颜色转换成颜色代码
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param string $str
      *
      * @return int|mixed
      */
     public function convertColors($str = '')
     {
-        if(is_array($str)) {
+        if (is_array($str)) {
             $color_code_arr = [];
             foreach ($str as $value) {
-                if(!empty($this->styles[$value])) {
+                if (!empty($this->styles[$value])) {
                     $color_code_arr[] = $this->styles[$value];
                 } elseif (is_int($value)) {
                     $color_code_arr[] = $value;
@@ -102,6 +103,7 @@ class Color
 
             return implode(';', $color_code_arr);
         }
+
         return in_array($str, $this->styles) ? $this->styles[$str] : 0;
     }
 
@@ -109,16 +111,18 @@ class Color
      * 分割字符串为数组.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param string $color
      *
      * @return array|string
      */
     public function multiexplode($color = '')
     {
-        if(!is_array($color)) {
+        if (!is_array($color)) {
             $ready = str_replace($this->delimiter, $this->delimiter[0], $color);
             $color = explode($this->delimiter[0], $ready);
         }
+
         return  $color;
     }
 
@@ -126,6 +130,7 @@ class Color
      * 检查当前环境十分支持颜色标准.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @return bool
      */
     public function checkColorSupport()
@@ -133,6 +138,7 @@ class Color
         if (DIRECTORY_SEPARATOR === '\\') {
             return getenv('ANSICON') !== false || getenv('ConEmuANSI') === 'ON';
         }
+
         return function_exists('posix_isatty') && @posix_isatty(STDOUT);
     }
 
@@ -143,6 +149,7 @@ class Color
 
     /**
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param string $text
      * @param string $status
      * @param string $eol
@@ -151,11 +158,12 @@ class Color
      */
     public function color($text = '', $status = 'NOTE', $eol = PHP_EOL)
     {
-        if(!$this->checkColorSupport()) {
+        if (!$this->checkColorSupport()) {
             return $text;
         }
         $color = $this->multiexplode($status);
         $code = $this->convertColors($color);
-        return "\033[{$code}m" . $text . chr(27) . "[0m" . $eol;
+
+        return "\033[{$code}m".$text.chr(27).'[0m'.$eol;
     }
 }
