@@ -37,4 +37,4 @@ composer create-project dingdayu/convert2sql convert2sql
 php tosql.php
 ```
 
-> 颜色说明：https://dingdayu.github.io/baidu-bce-ocr-sdk/index.html#colors
+> 颜色说明：https://dingdayu.github.io/convert2sql/index.html#colors
