@@ -27,7 +27,7 @@ $filed = $csv->printExportFiled();
 $table = new \TextToSQL\Console\Table();
 echo $table->getTable($filed);
 
-if(strtolower(\TextToSQL\Console\IO::input('格式是否正确：（y是，其他否）')) != 'y') {
+if (strtolower(\TextToSQL\Console\IO::input('格式是否正确：（y是，其他否）')) !== 'y') {
     exit();
 }
 
@@ -40,7 +40,7 @@ while (!$csv->feof()) {
     // 显示进度
     $i = $csv->getProgress();
     $memory = memory_get_usage() - $start_memory;
-    printf("当前进度: [%-50s] %d%% 占用：%dM\r", str_repeat('#',$i/2), $i, $memory/1024);
+    printf("当前进度: [%-50s] %d%% 占用：%dM\r", str_repeat('#', $i/2), $i, $memory/1024);
 
     // 存入文件
     $sql->write($data);
@@ -48,5 +48,3 @@ while (!$csv->feof()) {
 
 echo PHP_EOL;
 echo "Done.\n";
-
-

@@ -62,7 +62,7 @@ class CVS extends Read
         $first = $this->getFirstRow();
 
         foreach ($first as $key => $value) {
-            if (in_array($value, $exportField)) {
+            if (in_array($value, $exportField, true)) {
                 $temp_pos = ['pos' => $key];
                 $temp_pos['name'] = $value;
                 $temp_pos['alias'] = (!empty($fieldAlias[$value])) ? $fieldAlias[$value] : $value;
@@ -171,7 +171,7 @@ class CVS extends Read
             $this->fseek($offset);
         }
 
-        if ($row == -1) {
+        if ($row === -1) {
             while (!$this->feof()) {
                 $ret[] = $this->getRowExportArr();
             }
