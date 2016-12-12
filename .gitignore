@@ -4,3 +4,5 @@ composer.lock
 .DS_Store
 vendor/*
 export/*
+
+.php_cs.cache
