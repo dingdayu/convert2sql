@@ -104,7 +104,7 @@ class Color
             return implode(';', $color_code_arr);
         }
 
-        return in_array($str, $this->styles) ? $this->styles[$str] : 0;
+        return in_array($str, $this->styles, true) ? $this->styles[$str] : 0;
     }
 
     /**
